@@ -18,6 +18,10 @@ def nearest_color(pixel, rgb_palette):
 
     # Distance formula on each item in palette 
     r, g, b = pixel
+    r  = pixel[2]
+    g = pixel[1]
+    b = pixel[0]
+
     color_diffs = []
     for location, color in rgb_palette.items():
         cr, cg, cb = color
@@ -43,6 +47,7 @@ def pixelation(filename, width, height, palette):
 
     # Convert color palette from hex values to RGB tuples dictionary
     rgb_dict = {}
+
     for j in range(len(palette)): 
         tmp = palette[j].lstrip("#")
         rgb_dict[j] = tuple(int(str(tmp[i:i+2]), 16) for i in (0, 2, 4))
@@ -62,6 +67,10 @@ def pixelation(filename, width, height, palette):
         curr = []
         for j in range(width):
             # Find nearest palette color to current pixel color 
+            # if set(resized[i][j]) == set([255, 255, 255]):
+            #     # Background color
+            #     curr.append(rgb_dict[0])
+            #     continue
             curr.append(nearest_color(tuple(resized[i][j]), rgb_dict))
             print(f"{count} out of {height * width}")
             count += 1
